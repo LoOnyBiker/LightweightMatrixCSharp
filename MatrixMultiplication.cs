@@ -3,6 +3,7 @@
 
 public partial class Matrix
 {
+
     private static Matrix StupidMultiply(Matrix m1, Matrix m2)
     {
         if (m1.Cols != m2.Rows) throw new MException("Wrong dimensions of matrix!");
@@ -11,11 +12,11 @@ public partial class Matrix
         for (int i = 0; i < result.Rows; i++)
             for (int j = 0; j < result.Cols; j++)
                 for (int k = 0; k < m1.Cols; k++)
-                    result[i, j] += m1[i, k] * m2[k, j];
+                    result[i, j] += (dynamic)m1[i, k] * m2[k, j];
         return result;
     }
 
-    private Matrix Strassen(Matrix A, Matrix B)
+    private static Matrix Strassen(Matrix A, Matrix B)
     {
         if (!A.IsMultiplicationPossible(B))
             throw new MException("Wrong dimension of matrix");
@@ -59,11 +60,11 @@ public partial class Matrix
         for (int i = 0; i < size; i++)          // rows
             for (int j = 0; j < size; j++)     // cols
             {
-                C[i, j] = 0;
+                C[i, j] = (dynamic)0;
                 if (xa + j < A.Cols && ya + i < A.Rows)
-                    C[i, j] += A[ya + i, xa + j];
+                    C[i, j] += (dynamic)A[ya + i, xa + j];
                 if (xb + j < B.Cols && yb + i < B.Rows)
-                    C[i, j] += B[yb + i, xb + j];
+                    C[i, j] += (dynamic)B[yb + i, xb + j];
             }
     }
 
@@ -72,11 +73,11 @@ public partial class Matrix
         for (int i = 0; i < size; i++)          // rows
             for (int j = 0; j < size; j++)     // cols
             {
-                C[i, j] = 0;
+                C[i, j] = (dynamic)0;
                 if (xa + j < A.Cols && ya + i < A.Rows)
-                    C[i, j] += A[ya + i, xa + j];
+                    C[i, j] += (dynamic)A[ya + i, xa + j];
                 if (xb + j < B.Cols && yb + i < B.Rows)
-                    C[i, j] -= B[yb + i, xb + j];
+                    C[i, j] -= (dynamic)B[yb + i, xb + j];
             }
     }
 
@@ -85,9 +86,9 @@ public partial class Matrix
         for (int i = 0; i < size; i++)          // rows
             for (int j = 0; j < size; j++)     // cols
             {
-                C[i, j] = 0;
+                C[i, j] = (dynamic)0;
                 if (xa + j < A.Cols && ya + i < A.Rows)
-                    C[i, j] += A[ya + i, xa + j];
+                    C[i, j] += (dynamic)A[ya + i, xa + j];
             }
     }
 
@@ -95,14 +96,14 @@ public partial class Matrix
     {
         for (int i = 0; i < size; i++)          // rows
             for (int j = 0; j < size; j++)
-                C[i, j] = A[ya + i, xa + j] + B[yb + i, xb + j];
+                C[i, j] = (dynamic)A[ya + i, xa + j] + B[yb + i, xb + j];
     }
 
     private static void AminusBintoC(Matrix A, int xa, int ya, Matrix B, int xb, int yb, Matrix C, int size)
     {
         for (int i = 0; i < size; i++)          // rows
             for (int j = 0; j < size; j++)
-                C[i, j] = A[ya + i, xa + j] - B[yb + i, xb + j];
+                C[i, j] = (dynamic)A[ya + i, xa + j] - B[yb + i, xb + j];
     }
 
     private static void ACopytoC(Matrix A, int xa, int ya, Matrix C, int size)
